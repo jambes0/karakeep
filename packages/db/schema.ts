@@ -83,6 +83,18 @@ export const users = sqliteTable("user", {
   autoSummarizationEnabled: integer("autoSummarizationEnabled", {
     mode: "boolean",
   }),
+  tagStyle: text("tagStyle", {
+    enum: [
+      "lowercase-hyphens",
+      "lowercase-spaces",
+      "lowercase-underscores",
+      "titlecase-spaces",
+      "titlecase-hyphens",
+      "camelCase",
+      "as-generated",
+    ],
+  }).default("titlecase-spaces"),
+  inferredTagLang: text("inferredTagLang"),
 });
 
 export const accounts = sqliteTable(
@@ -259,6 +271,7 @@ export const bookmarkLinks = sqliteTable(
 export const enum AssetTypes {
   LINK_BANNER_IMAGE = "linkBannerImage",
   LINK_SCREENSHOT = "linkScreenshot",
+  LINK_PDF = "linkPdf",
   ASSET_SCREENSHOT = "assetScreenshot",
   LINK_FULL_PAGE_ARCHIVE = "linkFullPageArchive",
   LINK_PRECRAWLED_ARCHIVE = "linkPrecrawledArchive",
@@ -266,6 +279,7 @@ export const enum AssetTypes {
   LINK_HTML_CONTENT = "linkHtmlContent",
   BOOKMARK_ASSET = "bookmarkAsset",
   USER_UPLOADED = "userUploaded",
+  AVATAR = "avatar",
   BACKUP = "backup",
   UNKNOWN = "unknown",
 }
@@ -279,6 +293,7 @@ export const assets = sqliteTable(
       enum: [
         AssetTypes.LINK_BANNER_IMAGE,
         AssetTypes.LINK_SCREENSHOT,
+        AssetTypes.LINK_PDF,
         AssetTypes.ASSET_SCREENSHOT,
         AssetTypes.LINK_FULL_PAGE_ARCHIVE,
         AssetTypes.LINK_PRECRAWLED_ARCHIVE,
@@ -286,6 +301,7 @@ export const assets = sqliteTable(
         AssetTypes.LINK_HTML_CONTENT,
         AssetTypes.BOOKMARK_ASSET,
         AssetTypes.USER_UPLOADED,
+        AssetTypes.AVATAR,
         AssetTypes.BACKUP,
         AssetTypes.UNKNOWN,
       ],

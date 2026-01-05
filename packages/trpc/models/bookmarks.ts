@@ -161,6 +161,7 @@ export class Bookmark extends BareBookmark {
         screenshotAssetId: assets.find(
           (a) => a.assetType == AssetTypes.LINK_SCREENSHOT,
         )?.id,
+        pdfAssetId: assets.find((a) => a.assetType == AssetTypes.LINK_PDF)?.id,
         fullPageArchiveAssetId: assets.find(
           (a) => a.assetType == AssetTypes.LINK_FULL_PAGE_ARCHIVE,
         )?.id,
@@ -181,6 +182,7 @@ export class Bookmark extends BareBookmark {
           ? await Bookmark.getBookmarkHtmlContent(link, bookmark.userId)
           : null,
         crawledAt: link.crawledAt,
+        crawlStatus: link.crawlStatus,
         author: link.author,
         publisher: link.publisher,
         datePublished: link.datePublished,
@@ -463,6 +465,7 @@ export class Bookmark extends BareBookmark {
                   : row.bookmarkLinks.htmlContent
                 : null,
               contentAssetId: row.bookmarkLinks.contentAssetId,
+              crawlStatus: row.bookmarkLinks.crawlStatus,
               crawledAt: row.bookmarkLinks.crawledAt,
               author: row.bookmarkLinks.author,
               publisher: row.bookmarkLinks.publisher,
@@ -524,6 +527,9 @@ export class Bookmark extends BareBookmark {
             invariant(content.type == BookmarkTypes.LINK);
             if (row.assets.assetType == AssetTypes.LINK_SCREENSHOT) {
               content.screenshotAssetId = row.assets.id;
+            }
+            if (row.assets.assetType == AssetTypes.LINK_PDF) {
+              content.pdfAssetId = row.assets.id;
             }
             if (row.assets.assetType == AssetTypes.LINK_FULL_PAGE_ARCHIVE) {
               content.fullPageArchiveAssetId = row.assets.id;
