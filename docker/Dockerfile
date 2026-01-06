@@ -10,15 +10,7 @@ RUN npm install -g corepack@0.31.0 && corepack enable
 
 # Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
 
-RUN apk add --no-cache \
-    python3 \
-    py3-pip \
-    make \
-    gcc \
-    g++ \
-    libffi-dev \
-    linux-headers \
-    libc6-compat
+RUN apk add --no-cache libc6-compat make g++ py3-pip linux-headers
 
 # Copy package files for dependency installation
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml .npmrc ./
